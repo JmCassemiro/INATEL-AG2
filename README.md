@@ -179,44 +179,7 @@ Use a **ordem exibida** pelo `predict.py` (pode incluir `_cm` conforme seu CSV).
 ## 🧱 Reprodutibilidade
 - `random_state=42` no split.
 - Fixe versões no `requirements.txt` (ex.: `scikit-learn==1.7.2`).
-- **Atenção:** abrir `.joblib` gerado em versão diferente do scikit-learn pode emitir **InconsistentVersionWarning**. Melhor **treinar localmente** com suas versões para o vídeo/entrega.
-
----
-
-## 🩹 Troubleshooting
-
-- **`FileNotFoundError: CSV não encontrado`**  
-  Garanta que o arquivo está em `data/iris.csv` (ou passe `--csv` no `train.py`).
-
-- **`KeyError: 'species' não encontrada`**  
-  Renomeie sua coluna de classe para `species` ou use `target/class/variety/label`. O código renomeia para `species`.
-
-- **`Coluna não encontrada para 'sepal_length'`**  
-  Verifique os nomes das features no CSV. O código aceita variações (`sepal.length`, `sepal length`, `_cm`, etc). Se ainda falhar, ajuste no `utils.py` (dicionário `_FEATURE_SYNONYMS`).
-
-- **Aviso de versão do scikit-learn (InconsistentVersionWarning)**  
-  Retreine localmente (`python src/train.py`) com a sua versão ou alinhe a versão do sklearn no `requirements.txt`.
-
----
-
-## 🎥 Roteiro do Vídeo (≤ 7 min)
-
-1. **Contexto rápido** (dataset Iris, 3 classes, 4 features).  
-2. **Abrir o projeto** e mostrar `data/iris.csv`.  
-3. **Rodar o treino** (`python src/train.py`): comentar split 80/20, shuffle, GaussianNB.  
-4. Mostrar **métricas** no console e o arquivo `models/metrics.json`.  
-5. **Predição**: `python src/predict.py --values "..."`
-6. Encerrar recapitulando o mapeamento (setosa=1, versicolor=2, virginica=3).
-
----
-
-## 📦 Entrega
-
-- **GitHub (público)** ou **ZIP** do projeto completo.
-- Garanta que o revisor consegue:
-  1) instalar (`pip install -r requirements.txt`),  
-  2) treinar (`python src/train.py`),  
-  3) prever (`python src/predict.py --values "..."`).
+- **Atenção:** abrir `.joblib` gerado em versão diferente do scikit-learn pode emitir **InconsistentVersionWarning**. Melhor **treinar localmente** com suas versões.
 
 ---
 
