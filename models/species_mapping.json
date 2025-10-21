@@ -1,0 +1,19 @@
+{
+  "species_to_int": {
+    "setosa": 1,
+    "versicolor": 2,
+    "virginica": 3
+  },
+  "int_to_species": {
+    "1": "setosa",
+    "2": "versicolor",
+    "3": "virginica"
+  },
+  "feature_columns": [
+    "sepal_length_cm",
+    "sepal_width_cm",
+    "petal_length_cm",
+    "petal_width_cm"
+  ],
+  "csv_source": "C:\\Users\\jmxd\\Documents\\INATEL-AG2\\data\\iris.csv"
+}

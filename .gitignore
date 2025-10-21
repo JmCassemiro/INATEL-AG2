@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+env/
+venv/
+ENV/
+build/
+dist/
+.ipynb_checkpoints
+.DS_Store
+models/*.joblib
+data/*.zip
