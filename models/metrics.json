@@ -69,5 +69,6 @@
   "test_size": 0.2,
   "shuffle": true,
   "random_state": 42,
-  "model": "GaussianNB"
+  "model": "GaussianNB",
+  "label_mapping_method": "pandas.Series.replace"
 }

@@ -15,5 +15,7 @@
     "petal_length_cm",
     "petal_width_cm"
   ],
-  "csv_source": "C:\\Users\\jmxd\\Documents\\INATEL-AG2\\data\\iris.csv"
+  "csv_source": "C:\\Users\\jmxd\\Documents\\INATEL-AG2\\data\\iris.csv",
+  "label_column": "species",
+  "label_mapping_method": "pandas.Series.replace"
 }
