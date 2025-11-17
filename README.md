@@ -30,8 +30,7 @@ ag2-iris/
     metrics.json
   src/
     utils.py
-    train.py
-    predict.py            
+    train.py           
     predict_pretty.py     
     train_report.py       
     app_streamlit.py      
