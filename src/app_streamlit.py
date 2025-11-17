@@ -5,18 +5,14 @@ import pandas as pd
 import joblib
 import streamlit as st
 
-# -----------------------------
-# Configuração da página
-# -----------------------------
+
 st.set_page_config(
     page_title="Iris Classifier — GaussianNB",
     page_icon="🌸",
     layout="centered",
 )
 
-# -----------------------------
-# Helpers
-# -----------------------------
+
 def load_bundle(model_path: Path):
     if not model_path.exists():
         st.error(f"Modelo não encontrado: {model_path}\nRode antes: `python src/train.py`.")
@@ -51,9 +47,7 @@ def parse_float(text: str):
     except Exception:
         return False, "Digite um número válido (use ponto ou vírgula)."
 
-# -----------------------------
-# Carregamento do modelo e métricas
-# -----------------------------
+
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_PATH = ROOT / "models" / "iris_nb.joblib"
 METRICS_PATH = ROOT / "models" / "metrics.json"
@@ -61,13 +55,11 @@ METRICS_PATH = ROOT / "models" / "metrics.json"
 clf, feature_columns, species_to_int, int_to_species = load_bundle(MODEL_PATH)
 metrics = load_metrics(METRICS_PATH)
 
-# Classes na ordem interna do modelo (para predict_proba)
+
 classes_in_model = getattr(clf, "classes_", np.array(sorted(int_to_species.keys())))
 class_names = [int_to_species[int(c)] for c in classes_in_model]
 
-# -----------------------------
-# Sidebar (informações)
-# -----------------------------
+
 with st.sidebar:
     st.header("ℹ️ Sobre o modelo")
     st.write("**Algoritmo:** Gaussian Naive Bayes")
@@ -88,10 +80,7 @@ with st.sidebar:
 st.title("🌸 Iris Classifier")
 st.caption("Interface web para predição — GaussianNB (Iris)")
 
-# -----------------------------
-# Entradas por DIGITAÇÃO (sem sliders)
-# Defaults "confortáveis" próximos a setosa
-# -----------------------------
+
 defaults = {
     "sepal_length": "5.1",
     "sepal_width":  "3.5",
@@ -111,7 +100,7 @@ with st.form("predict_form", clear_on_submit=False):
 
     submitted = st.form_submit_button("🔮 Prever (Enter)")
 
-# Processamento da submissão
+
 if submitted:
     fields = {
         "sepal_length": sepal_length_txt,
@@ -133,28 +122,28 @@ if submitted:
         st.error("Erros na entrada:\n\n- " + "\n- ".join(errors))
         st.stop()
 
-    # Reordena segundo a ordem EXATA salva no modelo
+    
     ordered_vals = []
     for col in feature_columns:
-        base_key = base_feature_key(col)   # ex: sepal_length_cm -> sepal_length
+        base_key = base_feature_key(col)   
         if base_key not in ui_values:
             st.error(f"Entrada ausente para a feature '{col}'.")
             st.stop()
         ordered_vals.append(ui_values[base_key])
 
-    # Predição
+   
     X = np.array(ordered_vals, dtype=float).reshape(1, -1)
     y_pred = int(clf.predict(X)[0])
     species = int_to_species[y_pred]
 
     st.success(f"**Predição:** {species.upper()}  —  (label = {y_pred})")
 
-    # Tabela com as entradas (na ordem do modelo)
+   
     df_inputs = pd.DataFrame([ordered_vals], columns=feature_columns)
     with st.expander("Ver entradas usadas na predição"):
         st.dataframe(df_inputs, use_container_width=True)
 
-    # Probabilidades por classe (se disponível)
+  
     if hasattr(clf, "predict_proba"):
         proba = clf.predict_proba(X)[0]
         df_prob = pd.DataFrame({"classe": classes_in_model, "espécie": class_names, "probabilidade": proba})
@@ -162,7 +151,7 @@ if submitted:
         st.subheader("Probabilidade por classe")
         st.bar_chart(df_prob)
 
-    # Download do JSON com o resultado
+    
     result_json = json.dumps({
         "input_order": feature_columns,
         "input_values": ordered_vals,
@@ -171,6 +160,6 @@ if submitted:
     }, ensure_ascii=False, indent=2)
     st.download_button("⬇️ Baixar resultado (JSON)", data=result_json, file_name="iris_prediction.json", mime="application/json")
 
-# Rodapé opcional
+
 st.divider()
 st.caption("Dica rápida: *petal_length* < ~2.5 → setosa; 3–5 (e *petal_width* ≤ ~1.8) → versicolor; > ~5 ou *petal_width* > ~1.8 → virginica.")

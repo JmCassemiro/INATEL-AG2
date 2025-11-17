@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import argparse
 import json
 from pathlib import Path
@@ -52,7 +51,6 @@ def main():
 
     df = pd.read_csv(csv_path)
 
-    # garantir coluna species
     if "species" not in df.columns:
         for c in df.columns:
             if c.lower().strip() in ("species", "target", "class", "variety", "label"):
@@ -61,24 +59,18 @@ def main():
     if "species" not in df.columns:
         raise KeyError("Coluna 'species' não encontrada no CSV.")
 
-    # normalizar nomes e validar
     df["species"] = df["species"].map(normalize_species_name)
     bad = set(df["species"].unique()) - set(SPECIES_TO_INT.keys())
     if bad:
         raise ValueError(f"Valores inesperados em 'species': {sorted(bad)}")
 
-    # === mapeamento usando Series.replace (exigência do PDF) ===
     df["species"] = (
-        df["species"]
-        .replace(SPECIES_TO_INT)
-        .infer_objects(copy=False)  # <- evita o downcasting silencioso
-        .astype("int64")
+        df["species"].replace(SPECIES_TO_INT).infer_objects(copy=False).astype("int64")
     )
 
-    # features
     cols = resolve_feature_columns(df)
     X = df[cols].to_numpy(dtype=float)
-    y = df["species"].to_numpy(dtype=int)  # já convertido por replace
+    y = df["species"].to_numpy(dtype=int)
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, shuffle=True, random_state=42
@@ -110,7 +102,7 @@ def main():
     print("Confusion matrix (rows=true, cols=pred):")
     print(cm)
 
-    # salvar modelo e mapeamentos
+   
     out_model = Path(args.model_out)
     out_model.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(
@@ -135,7 +127,7 @@ def main():
         json.dumps(mapping_json, indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
-    # salvar métricas
+    
     metrics = {
         "accuracy": acc,
         "classification_report": cls_report,

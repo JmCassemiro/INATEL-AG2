@@ -14,7 +14,7 @@ def _norm_key(c: str) -> str:
     c = str(c).lower()
     return "".join(ch for ch in c if ch.isalnum())
 
-# Aceita várias variações de nomes de colunas (com/sem "_cm", pontos, espaços, etc)
+
 _FEATURE_SYNONYMS = {
     "sepal_length": {
         "sepal_length", "sepal.length", "sepal length", "sepal_length_cm",
@@ -47,4 +47,4 @@ def resolve_feature_columns(df):
         if not found:
             raise KeyError(f"Coluna não encontrada para '{base}'. Colunas no CSV: {list(df.columns)}")
         resolved.append(found)
-    return resolved  # ordem: [sepal_length, sepal_width, petal_length, petal_width]
+    return resolved  

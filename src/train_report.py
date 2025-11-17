@@ -15,7 +15,7 @@ def main():
 
     data = json.loads(metrics_path.read_text(encoding="utf-8"))
 
-    # Painel principal
+   
     top = Panel(f"[bold]Modelo:[/] {data.get('model')}\n"
                 f"[bold]Accuracy:[/] {data.get('accuracy'):.4f}\n"
                 f"[bold]Split:[/] test_size={data.get('test_size')}  shuffle={data.get('shuffle')}  random_state={data.get('random_state')}\n"
@@ -23,9 +23,9 @@ def main():
                 title="Resumo", border_style="green")
     console.print(top)
 
-    # Classification report (macro view)
+    
     cr = data.get("classification_report", {})
-    # Tabela por classe
+    
     per_class = Table(title="Relatório por classe", show_lines=True)
     per_class.add_column("Classe", style="magenta")
     per_class.add_column("precision", justify="right")
@@ -41,7 +41,7 @@ def main():
                           str(row.get("support", 0)))
     console.print(per_class)
 
-    # Averages
+   
     for avg_key in ["macro avg", "weighted avg"]:
         row = cr.get(avg_key, None)
         if row:
@@ -54,7 +54,7 @@ def main():
                               f"{row.get('f1-score',0):.4f}")
             console.print(avg_table)
 
-    # Confusion matrix
+    
     cm = data.get("confusion_matrix", [])
     labels = data.get("target_names", [])
     if cm and labels:
