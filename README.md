@@ -2,6 +2,8 @@
 
 # AG2 — Classificação de Íris (Gaussian Naive Bayes)
 
+Alunos: João Marcos Cassemiro Delfino - 288 // Pedro vilas boas Vasconcelos - 427
+
 Projeto de Análise e Classificação do dataset Iris (UCI). Pipeline completo em Python: leitura do CSV, pré-processamento, split 80/20, treino de GaussianNB, métricas, e predição via CLI e UI Web (Streamlit).
 
 Mapeamento de rótulos (exigido): setosa → 1, versicolor → 2, virginica → 3.
@@ -123,5 +125,3 @@ streamlit run src/app_streamlit.py
 - petal_length 3–5 e petal_width ≤ ~1.8 → versicolor
 - petal_length > ~5 ou petal_width > ~1.8 → virginica
 
-## 📜 Licença
-Uso acadêmico/educacional, conforme diretrizes da disciplina.
