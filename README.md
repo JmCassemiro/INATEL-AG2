@@ -1,3 +1,5 @@
+#Link do video -> https://www.youtube.com/watch?v=DmRZQP_Fl34
+
 # AG2 — Classificação de Íris (Gaussian Naive Bayes)
 
 Projeto de Análise e Classificação do dataset Iris (UCI). Pipeline completo em Python: leitura do CSV, pré-processamento, split 80/20, treino de GaussianNB, métricas, e predição via CLI e UI Web (Streamlit).
