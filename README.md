@@ -1,4 +1,4 @@
-#Link do video -> https://www.youtube.com/watch?v=DmRZQP_Fl34
+# Link do video -> https://www.youtube.com/watch?v=DmRZQP_Fl34
 
 # AG2 — Classificação de Íris (Gaussian Naive Bayes)
 
